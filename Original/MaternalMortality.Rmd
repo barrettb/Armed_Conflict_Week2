@@ -1,0 +1,35 @@
+```{r}
+library(here)
+library(tidyverse)
+here()
+rawdat <- read.csv(here('original', 'maternalmortality.csv'),header=TRUE)
+rawdat
+```
+```{r}
+rawdat <- rawdat %>% select(Country.Name,X2000:X2019)
+
+```
+
+
+```{r}
+rawdat
+```
+
+```{r}
+rawdat_long <- rawdat %>% tidyr::pivot_longer(
+  cols = dplyr::starts_with("X"),
+  names_to= "Year",
+  names_prefix = "X",
+  values_to = "MatMor"
+  
+) %>%
+  mutate(Year=as.numeric(Year))
+head(rawdat_long,20)
+```
+```{r}
+library(usethis)
+usethis::use_git_config(user.name = "barrettb", user.email = "barrettb@ad.unc.edu")
+usethis::use_github() 
+```
+
+
