@@ -26,10 +26,25 @@ rawdat_long <- rawdat %>% tidyr::pivot_longer(
   mutate(Year=as.numeric(Year))
 head(rawdat_long,20)
 ```
+
+
 ```{r}
 library(usethis)
-usethis::use_git_config(user.name = "barrettb", user.email = "barrettb@ad.unc.edu")
-usethis::use_github() 
+usethis::use_git()
+
+```
+```{r}
+usethis::create_github_token()
+
+```
+
+```{r}
+gitcreds::gitcreds_set()
+```
+
+```{r}
+usethis::use_github()
+
 ```
 
 
