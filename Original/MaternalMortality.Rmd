@@ -3,7 +3,6 @@ library(here)
 library(tidyverse)
 here()
 rawdat <- read.csv(here('original', 'maternalmortality.csv'),header=TRUE)
-rawdat
 ```
 ```{r}
 rawdat <- rawdat %>% select(Country.Name,X2000:X2019)
@@ -25,13 +24,12 @@ rawdat_long <- rawdat %>% tidyr::pivot_longer(
 ) %>%
   mutate(Year=as.numeric(Year))
 head(rawdat_long,20)
+
+
 ```
 
 
-```{r}
-library(usethis)
 
-```
 
 
 

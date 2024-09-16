@@ -1,0 +1,31 @@
+```{r}
+library(here)
+library(tidyverse)
+here()
+
+rawdat <- read.csv(here('original', 'disaster.csv'),header=TRUE)
+filtered_data <- rawdat %>%
+  filter(Year >= 2000 & Year <= 2019, Disaster.Type %in% c("Earthquake", "Drought"))
+
+
+```
+
+```{r}
+filtered_data <- filtered_data %>%
+  mutate(
+    drought = ifelse(Disaster.Type == "Drought", 1, 0),
+    earthquake = ifelse(Disaster.Type == "Earthquake", 1, 0)
+  )
+
+```
+
+```{r}
+summarized_data <- filtered_data %>%
+  group_by(ISO, Year) %>%
+  summarize(
+    total_droughts = sum(drought, na.rm = TRUE),
+    total_earthquakes = sum(earthquake, na.rm = TRUE),
+    .groups = 'drop'
+  )
+summarized_data
+```
