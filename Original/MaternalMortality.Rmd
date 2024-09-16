@@ -30,6 +30,9 @@ head(rawdat_long,20)
 
 ```{r}
 library(usethis)
+
+```
+```{r}
 usethis::use_git()
 
 ```
@@ -38,13 +41,13 @@ usethis::create_github_token()
 
 ```
 
-```{r}
-gitcreds::gitcreds_set()
-```
 
 ```{r}
 usethis::use_github()
 
 ```
+
+
+
 
 
