@@ -1,0 +1,32 @@
+```{r}
+library(dply)
+cov <- read.csv(here('original', 'covariates.csv'),header=TRUE)
+
+source(R\disaster.rmd)
+source(R\armed.rmd)
+source(R\disaster.rmd)
+view(new_dist)
+view(merged)
+view(result)
+view(cov)
+```
+
+
+
+
+```{r}
+
+merged_data <- left_join(x = new_dist, y = merged, by = 'ISO')
+
+merged_final <- left_join(merged_data, result, by = c("ISO" = "ISO", "year" = "year"))
+```
+
+
+```{r}
+merged_final2 <- left_join(merged_final, cov, by = c("ISO" = "ISO", "year" = "year"))
+
+```
+
+```{r}
+write.csv(merged_final2, "merged_final.csv", row.names = FALSE)
+```

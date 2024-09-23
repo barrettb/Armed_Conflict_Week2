@@ -1,0 +1,14 @@
+```{r}
+
+df <- read.csv(here('original', 'conflictdata (1).csv'),header=TRUE)
+
+result <- df %>%
+  mutate(year_lag = year + 1) %>%                  
+  group_by(ISO,year_lag ) %>%                       
+  summarise(total_best_col = sum(best, na.rm = TRUE), .groups = 'drop') %>%
+    mutate(armed_dummy = if_else(total_best_col > 0, 1, 0))
+
+     
+result$year <- result$year_lag -1
+view(result)
+```
