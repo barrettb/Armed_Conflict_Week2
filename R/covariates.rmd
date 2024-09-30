@@ -1,15 +1,23 @@
 ```{r}
 library(dply)
+library(knitr)
 cov <- read.csv(here('original', 'covariates.csv'),header=TRUE)
+library(knitr)
 
-source(here("R", "armed.rmd"))
-source(here("R", "disaster.rmd"))
-source(here("R", "MaternalMortality.rmd"))
+purl(here("R", "armed.rmd"), output = here("R", "armed.R"))
+purl(here("R", "disaster.rmd"), output = here("R", "disaster.R"))
+purl(here("R", "MaternalMortality.rmd"), output = here("R", "MaternalMortality.R"))
+
+
+source(here("R", "armed.R"))
+source(here("R", "disaster.R"))
+source(here("R", "MaternalMortality.R"))
 
 #view(new_dist)
 #view(merged)
 #view(result)
 #view(cov)
+
 ```
 
 
@@ -18,9 +26,12 @@ all <- list(summarized_data, merged, result)
 all |> reduce(full_join, by = c('ISO', 'year')) -> finaldata0
 finaldata <- cov |>
   left_join(finaldata0, by = c('ISO', 'year'))
-view(finaldata)
+write.csv(finaldata, "finaldata.csv")
 ```
 
 
 
+```{r}
+view(finaldata)
+```
 

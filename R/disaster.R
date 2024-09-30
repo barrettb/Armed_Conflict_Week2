@@ -1,4 +1,4 @@
-```{r}
+## -----------------------------------------------------------------------------
 library(here)
 library(tidyverse)
 here()
@@ -10,17 +10,17 @@ filtered_data <- rawdat %>%
 new_dist <- new_dist %>%
   filter(Year >= 2000 & Year <= 2019, Disaster.Type %in% c("Earthquake", "Drought"))
 
-```
 
-```{r}
+
+## -----------------------------------------------------------------------------
 filtered_data <- filtered_data %>%
   mutate(
     drought = ifelse(Disaster.Type == "Drought", 1, 0),
     earthquake = ifelse(Disaster.Type == "Earthquake", 1, 0)
   )
 
-```
-```{r}
+
+## -----------------------------------------------------------------------------
 new_dist <- new_dist %>%
   mutate(
     drought = ifelse(Disaster.Type == "Drought", 1, 0),
@@ -35,9 +35,9 @@ new_dist <- data.frame(
   Dummy_Earthquake = new_dist$earthquake,
   Dummy_Drought = new_dist$drought
 )
-```
 
-```{r}
+
+## -----------------------------------------------------------------------------
 summarized_data <- filtered_data %>%
   group_by(ISO, Year) %>%
   summarize(
@@ -47,5 +47,4 @@ summarized_data <- filtered_data %>%
   )
 summarized_data <- summarized_data %>%
   rename(year = Year)
-view(summarized_data)
-```
+
