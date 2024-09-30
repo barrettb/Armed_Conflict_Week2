@@ -35,7 +35,6 @@ new_dist <- data.frame(
   Dummy_Earthquake = new_dist$earthquake,
   Dummy_Drought = new_dist$drought
 )
-view(new_dist)
 ```
 
 ```{r}
@@ -46,5 +45,6 @@ summarized_data <- filtered_data %>%
     total_earthquakes = sum(earthquake, na.rm = TRUE),
     .groups = 'drop'
   )
-View(summarized_data)
+summarized_data <- summarized_data %>%
+  rename(year = Year)
 ```
