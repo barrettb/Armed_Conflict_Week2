@@ -10,5 +10,4 @@ result <- df %>%
 
      
 result$year <- result$year_lag -1
-view(result)
 

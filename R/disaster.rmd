@@ -47,5 +47,4 @@ summarized_data <- filtered_data %>%
   )
 summarized_data <- summarized_data %>%
   rename(year = Year)
-view(summarized_data)
 ```

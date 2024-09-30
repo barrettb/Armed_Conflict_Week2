@@ -1,0 +1,68 @@
+###Exploratory Data Analysis
+
+```{r}
+library(dplyr)
+library(ggplot2)
+Country.Name
+df <- read.csv(here("data", "finaldata.csv"), header=TRUE)
+df <- df %>%
+  select(-year_lag, -Country.Name)
+df$total_droughts[!df$total_droughts %in% c(0, 1, 2, 3, 4)] <- 0
+df$total_earthquakes[!df$total_earthquakes %in% 0:11] <- 0
+view(df)
+```
+For exploring my dataset I wanted to start off by viewing the summary statistics for each variable as well look at individual counts of droughts and earthquakes. I chose these variables 
+specifically due to the amount of time spent merging them into the dataset, it is most likely useful to take a deeper look.
+
+```{r}
+summary(df)
+ggplot(data = df) +
+  geom_bar(mapping = aes(x = total_droughts))
+ggplot(data = df) +
+  geom_bar(mapping = aes(x = total_earthquakes))
+ggplot(data = df) +
+
+```
+'''{r}
+Next, I wanted to view armed region by count to understand where these armed conflicts take place. Conflict is not isolated therefore I wanted to see if these conflicts tended to cluster by region
+
+  ```{r}
+
+ggplot(df, aes(x = region)) +
+  geom_bar() +
+  labs(title = "Count of Armed Conflict by Region",
+       x = "Region",
+       y = "Count") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
+        axis.title.x = element_text(size = 12))
+
+
+```
+
+
+```{r}
+ggplot(df, aes(x = region, y = total_best_col)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of Armed County by Region",
+       x = "Region",
+       y = "Armed County") +
+  theme_minimal()
+```
+
+I also believe that this data might be skewed due to one very serious conflict therefore I wanted to sort by year to see if I could isolate events in specific
+```{r}
+library(ggplot2)
+
+ggplot(df, aes(x = factor(year), y = total_best_col)) +  
+  geom_bar(stat = "identity", fill = "blue", width = 0.7) +  
+  labs(title = "Total Death by Year",
+       x = "Year",
+       y = "Total Death") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),  
+        plot.title = element_text(hjust = 0.5)) +          
+  scale_y_continuous(expand = expansion(mult = c(0, 0.05))) 
+
+
+```
