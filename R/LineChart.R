@@ -21,8 +21,10 @@ for (iso in unique(finaldata$ISO)) {
     positive_diff_ISO <- rbind(positive_diff_ISO, iso_data)
   }
 }
+positive_diff_ISO_clean <- na.omit(positive_diff_ISO)
 
-iso_list <- unique(positive_diff_ISO$ISO)
+iso_list <- unique(positive_diff_ISO_clean$ISO)
+iso_list <- unique(positive_diff_ISO_clean$ISO[!is.na(positive_diff_ISO$ISO)])
 
 finaldata <- finaldata %>% filter(ISO %in% iso_list)
 
